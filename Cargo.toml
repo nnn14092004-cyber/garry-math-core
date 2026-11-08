@@ -1,0 +1,10 @@
+[package]
+name = "garry-math-oss"
+version = "0.1.0"
+edition = "2021"
+description = "Zero-Dependency, Stack-Bounded O(1) Deterministic Mathematical & Axiom Swarm Engine"
+license = "MIT"
+
+[dependencies]
+
+[workspace]

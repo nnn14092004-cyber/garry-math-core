@@ -1,0 +1,5 @@
+﻿/target/
+/garry_workspace/
+task_report.txt
+*.checkpoint
+.DS_Store

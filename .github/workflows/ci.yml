@@ -1,0 +1,47 @@
+name: Garry Math OSS — Multi-OS Deterministic CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: "-Dwarnings"
+
+jobs:
+  verify-kernel:
+    name: Verify (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Stable Rust Toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Verify Zero External Dependencies in Cargo.toml
+        shell: bash
+        run: |
+          if grep -A 20 "\[dependencies\]" Cargo.toml | grep -v "\[dependencies\]" | grep -E "^[a-zA-Z0-9_-]+\s*="; then
+            echo "Violation: External crate detected in [dependencies]!"
+            exit 1
+          fi
+          echo "Verified: 0 external crates."
+
+      - name: Static Analysis (Clippy Zero Warnings)
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Execute Deterministic Unit Test Suite
+        run: cargo test --verbose
+
+      - name: Execute Bare-Metal O(1) Benchmarks
+        run: cargo run --release -- bench
