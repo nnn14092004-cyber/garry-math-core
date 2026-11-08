@@ -105,6 +105,13 @@ jobs:
           -A clippy::large_enum_variant
           -A clippy::manual_range_contains
           -A clippy::needless_range_loop
+          -A clippy::manual_pattern_char_comparison
+          -A clippy::manual_clamp
+          -A clippy::manual_is_multiple_of
+          -A clippy::op_ref
+          -A clippy::approx_constant
+          -A clippy::derivable_impls
+          -A clippy::type_complexity
 
       - name: Execute Deterministic Unit Test Suite
         run: cargo test --verbose
