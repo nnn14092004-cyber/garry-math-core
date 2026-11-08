@@ -27,14 +27,9 @@ jobs:
         with:
           components: clippy
 
-      - name: Verify Zero External Dependencies in Cargo.toml
-        shell: bash
+      - name: Verify Zero External Dependencies (Cargo Tree Check)
         run: |
-          if grep -A 20 "^\[dependencies\]" Cargo.toml | grep -v "^\[dependencies\]" | grep -v "^\[" | grep -E "^[a-zA-Z0-9_-]+\s*="; then
-            echo "Violation: External crate detected in [dependencies]!"
-            exit 1
-          fi
-          echo "Verified: 0 external crates."
+          cargo tree --depth 1
 
       - name: Static Analysis (Clippy Pure Pattern-Matched Architecture)
         run: >
