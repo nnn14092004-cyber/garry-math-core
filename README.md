@@ -1,14 +1,14 @@
 # GARRY MATH OSS — Bare-Metal Deterministic Mathematical & Axiom Swarm Kernel
 
 [![CI/CD Pipeline](https://img.shields.io/badge/CI%2FCD-Passing%20(Linux%20%7C%20macOS%20%7C%20Windows)-brightgreen?style=flat-square)](#continuous-integration--multi-os-verification)
-[![Dependencies](https://img.shields.io/badge/External%20Crates-0%20(100%25%20Pure%20Rust%20std)-blue?style=flat-square)](#architectural-manifesto--first-principles-invariants)
+[![Dependencies](https://img.shields.io/badge/External%20Crates-0%20(100%25%20Pure%20Rust%20core%2Fstd)-blue?style=flat-square)](#architectural-manifesto--first-principles-invariants)
 [![Memory Bound](https://img.shields.io/badge/Memory%20Model-O(1)%20Stack--Bounded-orange?style=flat-square)](#architectural-manifesto--first-principles-invariants)
-[![Control Flow](https://img.shields.io/badge/Control%20Flow-Pattern--Matched%20%7C%20Fail--Closed-purple?style=flat-square)](#4-round-mathematical-adversary--smt-interval-prover)
+[![Control Flow](https://img.shields.io/badge/Control%20Flow-Pattern--Matched%20%7C%20Fail--Closed-purple?style=flat-square)](#end-to-end-verification-walkthrough-reproducible-evaluator-guide)
 [![License](https://img.shields.io/badge/License-MIT%20%2F%20Apache--2.0-informational?style=flat-square)](#license)
 
-**Garry Math OSS** is a self-contained, zero-dependency deterministic mathematical kernel, bounded-interval SMT constraint prover, and associative L2 Axiom Hypergraph engine written in 100% pure Rust (`std` only)[cite: 5, 6].
+**Garry Math OSS** is a self-contained, zero-dependency deterministic mathematical kernel, bounded-interval SMT constraint prover, and associative L2 Axiom Hypergraph engine written in 100% pure Rust (`core` deterministic primitives with `std` reserved strictly for CLI/file I/O).
 
-Engineered from first principles, `garry-math-oss` eliminates non-deterministic floating-point drift, unbounded heap allocations, and third-party library bloat[cite: 6]. Every mathematical derivation—ranging from linear algebraic factorizations ($A = LL^T$, $LU$, $QR$, Jacobi spectral diagonalization)[cite: 6, 8] and non-Abelian Lie-Poisson/Ricci-Casimir flows[cite: 11, 12] to Archimedes polygonal/apeirogonal exhaustion ($n \to \infty$)[cite: 14, 15] and 2D Cartesian rasterization[cite: 16]—is governed by a **Fail-Closed Mathematical Gate**[cite: 6], verified by a **4-Round Mathematical Adversary**[cite: 5], and sealed with a deterministic **7,865-byte CRC-32 state checkpoint**[cite: 5, 6].
+Engineered from first principles, `garry-math-oss` eliminates non-deterministic floating-point drift, unbounded heap allocations, and third-party library bloat. Every mathematical derivation—ranging from linear algebraic factorizations ($A = LL^T$, $LU$, $QR$, Jacobi spectral diagonalization) and non-Abelian Lie-Poisson/Ricci-Casimir flows to Archimedes polygonal/apeirogonal exhaustion ($n \to \infty$) and 2D Cartesian rasterization—is governed by a **Fail-Closed Mathematical Gate**, verified by a **4-Round Mathematical Adversary**, and sealed with a deterministic **7,865-byte CRC-32 state checkpoint**.
 
 ---
 
@@ -16,10 +16,10 @@ Engineered from first principles, `garry-math-oss` eliminates non-deterministic 
 
 Modern scientific computing and AI-assisted symbolic engines suffer from dependency bloat, non-deterministic execution paths, and hallucinated unverified steps. **Garry Math OSS** enforces four non-negotiable architectural invariants:
 
-1. **Zero External Crates (`0` Third-Party Dependencies):** Built strictly on the Rust standard library (`std`)[cite: 6]. Custom CRC-32 (`0xEDB88320` polynomial)[cite: 5], Xorshift64* PRNG[cite: 5], FNV-1a token hashing[cite: 8], JSONL serialization, symbolic AST differentiation, and Bresenham 2D/3D spatial rasterizers are implemented from scratch.
-2. **$O(1)$ Stack-Bounded Memory Discipline (`0` `vec!` Macro):** All matrices (`StackMatrix8x8`), execution DAGs (`PlanGraph`, 16 nodes max)[cite: 5], L1 working memory (`BoundedStorage`, 16 hot slots)[cite: 5, 6], L2 associative knowledge pools (`AxiomHyperGraphL2`, 256 nodes max)[cite: 5, 6], and 2D Cartesian plot buffers (`[[u8; 73]; 25]`) reside in fixed-size stack structures.
-3. **Fail-Closed Epistemic Integrity:** The solver refuses to guess or extrapolate unproven operators[cite: 9]. If a mathematical domain or conservation law is absent from the L2 Hypergraph, execution halts immediately at the **Fail-Closed Mathematical Gate** until the axiom is formally synthesized, challenged, and committed via `:swarm`[cite: 6, 9].
-4. **Deterministic State Machine & Cryptographic Auditability:** Every planning transition, gas/step meter charge, and axiom synthesis is recorded in a ring-buffer audit log and exported into a fixed **7,865-byte binary checkpoint** (`GARRYMTH` magic header, Version 3) verified by CRC-32[cite: 5, 6].
+1. **Zero External Crates (`0` Third-Party Dependencies):** Built strictly on Pure Rust without external crates. The mathematical kernel and dispatcher adhere to `#![no_std]`-compatible `core` constraints, while `std` is isolated to the outer REPL/CLI harness. Custom IEEE 802.3 CRC-32 (`0xEDB88320` polynomial), Xorshift64* PRNG, 64-bit FNV-1a branchless token hashing, JSONL serialization, symbolic AST differentiation, and Bresenham 2D/3D spatial rasterizers are implemented from scratch.
+2. **$O(1)$ Stack-Bounded Memory Discipline (`0` `vec!` Macro):** All matrices (`StackMatrix8x8`), execution DAGs (`PlanGraph`, 16 nodes max), L1 working memory (`BoundedStorage`, 16 hot slots), L2 associative knowledge pools (`AxiomHyperGraphL2`, 256 nodes max), and 2D Cartesian plot buffers (`[[u8; 73]; 25]`) reside in fixed-size stack structures with zero dynamic heap growth.
+3. **Fail-Closed Epistemic Integrity & Orthogonal Namespace Isolation:** The solver refuses to guess or extrapolate unproven operators. Domain routing is resolved in $O(1)$ constant time via 64-bit FNV-1a bitmask indexing across orthogonal scope partitions. If a mathematical domain or conservation law is absent from the L2 Hypergraph, execution halts immediately at the **Fail-Closed Mathematical Gate** until the axiom is formally synthesized, challenged, and committed via `:swarm`.
+4. **Deterministic State Machine & Cryptographic Auditability:** Every planning transition, compute step charge, and axiom synthesis is recorded in a ring-buffer audit log and exported into a fixed **7,865-byte binary checkpoint** (`GARRYMTH` magic header, Version 3) verified by an IEEE 802.3 CRC-32 seal.
 
 ---
 
@@ -27,7 +27,7 @@ Modern scientific computing and AI-assisted symbolic engines suffer from depende
 
 ```text
 garry-math-oss/
-├── Cargo.toml                  # Zero-dependency manifest (100% pure Rust std)
+├── Cargo.toml                  # Zero-dependency manifest (100% pure Rust)
 ├── Dockerfile                  # Multi-stage distroless/alpine container build
 ├── LICENSE                     # Dual MIT / Apache-2.0 License
 ├── .github/workflows/ci.yml    # Automated CI/CD across Linux, macOS, and Windows
@@ -65,7 +65,7 @@ curl --proto '=https' --tlsv1.2 -sSf [https://sh.rustup.rs](https://sh.rustup.rs
 source "$HOME/.cargo/env"
 
 # Clone and verify
-git clone [https://github.com/](https://github.com/)<your-org>/garry-math-oss.git
+git clone [https://github.com/birddigital/garry-math-oss.git](https://github.com/birddigital/garry-math-oss.git)
 cd garry-math-oss
 cargo test
 cargo run --release -- bench
@@ -79,7 +79,7 @@ curl --proto '=https' --tlsv1.2 -sSf [https://sh.rustup.rs](https://sh.rustup.rs
 source "$HOME/.cargo/env"
 
 # Build & run native Mach-O binary in release mode
-git clone [https://github.com/](https://github.com/)<your-org>/garry-math-oss.git
+git clone [https://github.com/birddigital/garry-math-oss.git](https://github.com/birddigital/garry-math-oss.git)
 cd garry-math-oss
 cargo test
 cargo run --release -- bench
@@ -88,7 +88,7 @@ cargo run --release
 
 #### 3. Windows (PowerShell)
 ```powershell
-git clone [https://github.com/](https://github.com/)<your-org>/garry-math-oss.git
+git clone [https://github.com/birddigital/garry-math-oss.git](https://github.com/birddigital/garry-math-oss.git)
 cd garry-math-oss
 cargo test
 cargo run --release -- bench
@@ -120,7 +120,7 @@ test solver::tests::test_dynamic_solver_resolves_after_swarm_and_exports_txt ...
 test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
 ```
 
-Executing `cargo run --release -- bench` measures raw $O(1)$ stack latency across 5,000 iterations[cite: 6]:
+Executing `cargo run --release -- bench` measures raw $O(1)$ stack latency across 5,000 iterations:
 
 ```text
 ================================================================================
@@ -141,8 +141,10 @@ Executing `cargo run --release -- bench` measures raw $O(1)$ stack latency acros
 
 Launch the interactive REPL with `cargo run --release`. Below is a complete, step-by-step verification protocol demonstrating the **Fail-Closed Gate**, **Live Axiom Swarming**, **Multi-Axiom Resonance**, **Polygonal/Apeirogonal Exhaustion**, and **2D Cartesian Plotting**.
 
+> **Note on Algebraic Surrogate Projections:** In Steps 1–3 below, the swarmed expressions (`ax_001_yang_mills_casimir`, `ax_042_ricci_perelman_entropy`, and `ax_105_kramers_wannier_duality`) represent discrete, finite-dimensional matrix projection surrogates evaluated over spectral trace $\text{Tr}(A)$, determinant $\det(A)$, and Frobenius norm $\Vert{}A\Vert{}_F$ invariants of a $3 \times 3$ operator matrix. They are designed to benchmark deterministic L2 Hypergraph multi-axiom resonance and 4-Round SMT Interval Adversary refutation in $O(1)$ stack memory.
+
 ### Step 1: Verify the Fail-Closed Mathematical Gate (Before Swarming)
-Attempt to evaluate a composite non-Abelian Yang-Mills Casimir, Perelman Ricci Entropy, and Kramers-Wannier Duality problem before the axioms exist in the L2 Hypergraph:
+Attempt to evaluate a composite multi-axiom operator query before the corresponding axioms exist in the L2 Hypergraph:
 
 ```text
 garry-math> Evaluate ax_001_yang_mills_casimir and ax_042_ricci_perelman_entropy and ax_105_kramers_wannier_duality on [[6, -2, 1], [-2, 5, -1], [1, -1, 4]] with alpha = 2.5, beta = 0.75, gamma = 1.25, kappa = 0.5 save to file yang_mills_ricci_solution.txt
@@ -157,10 +159,10 @@ garry-math> Evaluate ax_001_yang_mills_casimir and ax_042_ricci_perelman_entropy
 ---
 
 ### Step 2: Swarm New Conservation Axioms into L1/L2 & Persist to `.jsonl`
-Synthesize and formally verify the three axioms (or a batch of 100+ axioms separated by `;`) directly in the REPL. Each axiom is checked by the 4-Round Mathematical Adversary and Interval SMT Prover before being committed to `garry_workspace/knowledge/*.jsonl`:
+Synthesize and formally verify the three discrete matrix surrogate axioms (or a batch of 100+ axioms separated by `;`) directly in the REPL. Each axiom is checked by the 4-Round Mathematical Adversary and Interval SMT Prover before being committed to `garry_workspace/knowledge/*.jsonl`:
 
 ```text
-garry-math> :swarm ax_001_yang_mills_casimir := alpha * Tr(A) + beta * det(A) | Non-Abelian SU(N) Yang-Mills quadratic & cubic Casimir gauge invariance; ax_042_ricci_perelman_entropy := alpha * Tr(A) - kappa * ln(det(A) + 1.0) + gamma * chi | Perelman W-entropy monotonic functional under Hamilton-Ricci flow; ax_105_kramers_wannier_duality := ln(sinh_approx + Tr(A)) + gamma * norm(A) + chi | Kramers-Wannier 2D Ising partition function self-dual critical point invariant
+garry-math> :swarm ax_001_yang_mills_casimir := alpha * Tr(A) + beta * det(A) | Discrete SU(N) Yang-Mills Casimir trace-determinant matrix surrogate; ax_042_ricci_perelman_entropy := alpha * Tr(A) - kappa * ln(det(A) + 1.0) + gamma * chi | Discrete Perelman W-entropy log-determinant matrix functional; ax_105_kramers_wannier_duality := ln(sinh_approx + Tr(A)) + gamma * norm(A) + chi | Kramers-Wannier 2D Ising partition self-dual spectral surrogate
 ```
 
 **Expected Output:**
@@ -172,7 +174,7 @@ garry-math> :swarm ax_001_yang_mills_casimir := alpha * Tr(A) + beta * det(A) | 
   - Terminal Checkpoint Seal:    0x8F4C2A19
 ```
 
-*(You can also swarm any custom axiom on the fly, e.g.: `:swarm navier_stokes_helicity := alpha * Tr(A) + beta * det(A) | 3D vortex topological helicity conservation`)*
+*(You can also swarm any custom axiom on the fly, e.g.: `:swarm navier_stokes_helicity := alpha * Tr(A) + beta * det(A) | 3D vortex topological helicity conservation surrogate`)*
 
 ---
 
@@ -183,7 +185,7 @@ Re-run the exact query from Step 1:
 garry-math> Evaluate ax_001_yang_mills_casimir and ax_042_ricci_perelman_entropy and ax_105_kramers_wannier_duality on [[6, -2, 1], [-2, 5, -1], [1, -1, 4]] with alpha = 2.5, beta = 0.75, gamma = 1.25, kappa = 0.5 save to file solutions/yang_mills_ricci_solution.txt
 ```
 
-**Verified Output (Saved to `garry_workspace/solutions/yang_mills_ricci_solution.txt`)[cite: 12, 13]:**
+**Verified Output (Saved to `garry_workspace/solutions/yang_mills_ricci_solution.txt`):**
 ```text
 ================================================================================
    4-TIER FORMAL MATHEMATICAL DERIVATION REPORT: L2 HYPERGRAPH RESONANCE
@@ -227,7 +229,7 @@ garry-math> Apeirogon n = 1000000, r = 5.0 save to file solutions/apeirogon_limi
 garry-math> Plot y = 3.0 * sin(x) + 0.25 * x^2 with xmin = -6.28, xmax = 6.28 save to file solutions/wave_parabola_plot.txt
 ```
 
-**Verified Output (`solutions/wave_parabola_plot.txt`)[cite: 16]:**
+**Verified Output (`solutions/wave_parabola_plot.txt`):**
 ```text
 TIER 3: STEP-BY-STEP EXTREMUM & INTEGRAL TRACE
    * Step 1 [Observed Extrema on Grid]: inf(y) = -2.467160 | sup(y) = +9.869156
