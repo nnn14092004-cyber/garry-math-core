@@ -65,7 +65,7 @@ curl --proto '=https' --tlsv1.2 -sSf [https://sh.rustup.rs](https://sh.rustup.rs
 source "$HOME/.cargo/env"
 
 # Clone and verify
-git clone [https://github.com/birddigital/garry-math-oss.git](https://github.com/birddigital/garry-math-oss.git)
+git clone git clone [https://github.com/nnn14092004-cyber/garry-core.git](https://github.com/nnn14092004-cyber/garry-core.git)
 cd garry-math-oss
 cargo test
 cargo run --release -- bench
@@ -79,7 +79,7 @@ curl --proto '=https' --tlsv1.2 -sSf [https://sh.rustup.rs](https://sh.rustup.rs
 source "$HOME/.cargo/env"
 
 # Build & run native Mach-O binary in release mode
-git clone [https://github.com/birddigital/garry-math-oss.git](https://github.com/birddigital/garry-math-oss.git)
+git clone [https://github.com/nnn14092004-cyber/garry-core.git](https://github.com/nnn14092004-cyber/garry-core.git)
 cd garry-math-oss
 cargo test
 cargo run --release -- bench
@@ -88,7 +88,7 @@ cargo run --release
 
 #### 3. Windows (PowerShell)
 ```powershell
-git clone [https://github.com/birddigital/garry-math-oss.git](https://github.com/birddigital/garry-math-oss.git)
+git clone [https://github.com/nnn14092004-cyber/garry-core.git](https://github.com/nnn14092004-cyber/garry-core.git)
 cd garry-math-oss
 cargo test
 cargo run --release -- bench
